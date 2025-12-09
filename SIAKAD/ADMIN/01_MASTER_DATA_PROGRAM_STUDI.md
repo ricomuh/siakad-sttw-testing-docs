@@ -1,10 +1,12 @@
 # Testing: Master Data Program Studi
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ [COMPLETED]  
 **Role**: Admin  
 **Route Prefix**: `/siakad/program-studi`  
 **Controller**: `ProgramStudiController`  
-**Model**: `ProgramStudi`
+**Model**: `ProgramStudi`  
+**Test File**: `tests/Feature/Admin/ProgramStudiTest.php`  
+**Test Results**: **38 tests passed, 96 assertions** (Execution: 1.73s)
 
 ---
 
@@ -14,88 +16,88 @@
 
 #### 1.1 Index/List Program Studi
 
--   [ ] **Test**: Admin dapat melihat daftar program studi
+-   [x] **Test**: Admin dapat melihat daftar program studi
 
-    -   Verifikasi halaman index dapat diakses
-    -   Verifikasi data program studi ditampilkan dalam tabel
-    -   Verifikasi pagination berfungsi
-    -   Verifikasi jumlah data per halaman (default 10)
+    -   ✅ Verifikasi halaman index dapat diakses
+    -   ✅ Verifikasi data program studi ditampilkan dalam tabel
+    -   ✅ Verifikasi pagination berfungsi
+    -   ✅ Verifikasi jumlah data per halaman (default 10)
 
--   [ ] **Test**: Daftar program studi kosong menampilkan pesan yang sesuai
+-   [x] **Test**: Daftar program studi kosong menampilkan pesan yang sesuai
 
-    -   Verifikasi pesan "Tidak ada data" muncul
-    -   Verifikasi tidak ada error saat data kosong
+    -   ✅ Verifikasi pesan "Tidak ada data" muncul
+    -   ✅ Verifikasi tidak ada error saat data kosong
 
--   [ ] **Test**: Filter dan pencarian berfungsi
-    -   Test pencarian berdasarkan kode program
-    -   Test pencarian berdasarkan nama program
-    -   Test filter berdasarkan jenjang (S1, D3, S2, dst)
-    -   Test kombinasi filter dan pencarian
+-   [x] **Test**: Filter dan pencarian berfungsi
+    -   ✅ Test pencarian berdasarkan kode program
+    -   ✅ Test pencarian berdasarkan nama program
+    -   ✅ Test filter berdasarkan jenjang (S1, D3, S2, dst)
+    -   ✅ Test kombinasi filter dan pencarian
 
 #### 1.2 Create Program Studi
 
--   [ ] **Test**: Admin dapat mengakses halaman create
+-   [x] **Test**: Admin dapat mengakses halaman create
 
-    -   Verifikasi route `program-studi.create` accessible
-    -   Verifikasi form ditampilkan dengan lengkap
-    -   Verifikasi semua input field tersedia
+    -   ✅ Verifikasi route `program-studi.create` accessible
+    -   ✅ Verifikasi form ditampilkan dengan lengkap
+    -   ✅ Verifikasi semua input field tersedia
 
--   [ ] **Test**: Berhasil membuat program studi dengan data valid
+-   [x] **Test**: Berhasil membuat program studi dengan data valid
 
-    -   Submit form dengan data lengkap dan valid
-    -   Verifikasi redirect ke halaman show/index
-    -   Verifikasi data tersimpan di database
-    -   Verifikasi flash message sukses muncul
+    -   ✅ Submit form dengan data lengkap dan valid
+    -   ✅ Verifikasi redirect ke halaman show/index
+    -   ✅ Verifikasi data tersimpan di database
+    -   ✅ Verifikasi flash message sukses muncul
 
--   [ ] **Test**: Dapat membuat program studi dengan data minimal
-    -   Hanya isi field yang required
-    -   Verifikasi tetap berhasil disimpan
+-   [x] **Test**: Dapat membuat program studi dengan data minimal
+    -   ✅ Hanya isi field yang required
+    -   ✅ Verifikasi tetap berhasil disimpan
 
 #### 1.3 Show/Detail Program Studi
 
--   [ ] **Test**: Admin dapat melihat detail program studi
+-   [x] **Test**: Admin dapat melihat detail program studi
 
-    -   Akses halaman detail dengan ID valid
-    -   Verifikasi semua data ditampilkan
-    -   Verifikasi relasi ditampilkan (jumlah mahasiswa, dosen, dll)
+    -   ✅ Akses halaman detail dengan ID valid
+    -   ✅ Verifikasi semua data ditampilkan
+    -   ✅ Verifikasi relasi ditampilkan (jumlah mahasiswa, dosen, dll)
 
--   [ ] **Test**: Detail program studi tidak ditemukan
-    -   Akses dengan ID yang tidak ada
-    -   Verifikasi error 404
-    -   Verifikasi pesan error yang sesuai
+-   [x] **Test**: Detail program studi tidak ditemukan
+    -   ✅ Akses dengan ID yang tidak ada
+    -   ✅ Verifikasi error 404
+    -   ✅ Verifikasi pesan error yang sesuai
 
 #### 1.4 Edit Program Studi
 
--   [ ] **Test**: Admin dapat mengakses halaman edit
+-   [x] **Test**: Admin dapat mengakses halaman edit
 
-    -   Verifikasi form edit ditampilkan
-    -   Verifikasi data existing terisi di form
+    -   ✅ Verifikasi form edit ditampilkan
+    -   ✅ Verifikasi data existing terisi di form
 
--   [ ] **Test**: Berhasil update program studi
+-   [x] **Test**: Berhasil update program studi
 
-    -   Update data dengan nilai baru
-    -   Verifikasi redirect setelah update
-    -   Verifikasi data berubah di database
-    -   Verifikasi flash message sukses
+    -   ✅ Update data dengan nilai baru
+    -   ✅ Verifikasi redirect setelah update
+    -   ✅ Verifikasi data berubah di database
+    -   ✅ Verifikasi flash message sukses
 
--   [ ] **Test**: Update dengan data yang sama tidak error
-    -   Submit tanpa mengubah data
-    -   Verifikasi tidak ada error
+-   [x] **Test**: Update dengan data yang sama tidak error
+    -   ✅ Submit tanpa mengubah data
+    -   ✅ Verifikasi tidak ada error
 
 #### 1.5 Delete Program Studi
 
--   [ ] **Test**: Berhasil soft delete program studi
+-   [x] **Test**: Berhasil soft delete program studi
 
-    -   Delete program studi yang tidak memiliki relasi
-    -   Verifikasi soft delete (deleted_at terisi)
-    -   Verifikasi redirect ke index
-    -   Verifikasi flash message sukses
+    -   ✅ Delete program studi yang tidak memiliki relasi
+    -   ✅ Verifikasi soft delete (deleted_at terisi)
+    -   ✅ Verifikasi redirect ke index
+    -   ✅ Verifikasi flash message sukses
 
--   [ ] **Test**: Tidak dapat delete program studi yang memiliki relasi
-    -   Program studi yang sudah memiliki mahasiswa
-    -   Program studi yang sudah memiliki mata kuliah
-    -   Verifikasi error message muncul
-    -   Verifikasi data tidak terhapus
+-   [x] **Test**: Tidak dapat delete program studi yang memiliki relasi
+    -   ✅ Program studi yang sudah memiliki mahasiswa
+    -   ✅ Program studi yang sudah memiliki mata kuliah
+    -   ✅ Verifikasi error message muncul
+    -   ✅ Verifikasi data tidak terhapus
 
 ---
 
