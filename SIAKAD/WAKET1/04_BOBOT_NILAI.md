@@ -13,30 +13,35 @@
 ### 1. Operations to Test
 
 - [ ] **Index Bobot Nilai**
+
   - Method: `GET /waket1/bobot-nilai`
   - Action: `BobotNilaiController@index`
   - Menampilkan daftar bobot nilai per program studi
   - Response: View dengan list bobot nilai
 
 - [ ] **Create Bobot Nilai**
+
   - Method: `GET /waket1/bobot-nilai/create`
   - Action: `BobotNilaiController@create`
   - Menampilkan form tambah bobot nilai
   - Response: View form create
 
 - [ ] **Store Bobot Nilai**
+
   - Method: `POST /waket1/bobot-nilai`
   - Action: `BobotNilaiController@store`
   - Menyimpan bobot nilai baru
   - Response: Redirect dengan success message
 
 - [ ] **Edit Bobot Nilai**
+
   - Method: `GET /waket1/bobot-nilai/{bobotNilai}/edit`
   - Action: `BobotNilaiController@edit`
   - Menampilkan form edit bobot nilai
   - Response: View form edit
 
 - [ ] **Update Bobot Nilai**
+
   - Method: `PATCH /waket1/bobot-nilai/{bobotNilai}`
   - Action: `BobotNilaiController@update`
   - Mengupdate bobot nilai
@@ -60,6 +65,7 @@
 ### 3. Index View - Display
 
 - [ ] **Table Display**
+
   - [x] Column "Program Studi" ditampilkan
   - [x] Column "Grade" (A, AB, B, BC, C, D, E) ditampilkan
   - [x] Column "Nilai Minimum" ditampilkan (misal: 80.00)
@@ -79,6 +85,7 @@
 ### 4. Filter & Search
 
 - [ ] **Filter Program Studi**
+
   - [x] Dropdown program studi tersedia
   - [x] Filtering bobot nilai berdasarkan program studi
   - [x] Option "Semua Program Studi" tersedia
@@ -92,6 +99,7 @@
 ### 5. Create Bobot Nilai
 
 - [ ] **Form Fields**
+
   - [x] Dropdown "Program Studi" (required)
   - [x] Input "Grade" (required, misal: A, AB, B, BC, C, D, E)
   - [x] Input "Nilai Minimum" (required, numeric, 0-100)
@@ -102,6 +110,7 @@
   - [x] Button "Simpan" dan "Batal"
 
 - [ ] **Validation Rules**
+
   - [x] Program Studi wajib dipilih
   - [x] Grade wajib diisi, format uppercase (A, AB, B, BC, C, D, E)
   - [x] Nilai Minimum wajib diisi, numeric, 0-100
@@ -123,6 +132,7 @@
 ### 6. Edit Bobot Nilai
 
 - [ ] **Form Pre-fill**
+
   - [x] Form ter-pre-fill dengan data bobot nilai yang akan diedit
   - [x] Program Studi tidak dapat diubah (disabled atau hidden input)
   - [x] Grade tidak dapat diubah (disabled atau hidden input)
@@ -131,6 +141,7 @@
   - [x] Status Aktif dapat diubah
 
 - [ ] **Validation Rules**
+
   - [x] Nilai Minimum wajib diisi, numeric, 0-100
   - [x] Nilai Maksimum wajib diisi, numeric, 0-100
   - [x] Nilai Maksimum harus lebih besar dari Nilai Minimum
@@ -146,12 +157,14 @@
 ### 7. Delete Bobot Nilai
 
 - [ ] **Delete Confirmation**
+
   - [x] Modal konfirmasi muncul sebelum delete
   - [x] Warning message ditampilkan: "Hapus bobot nilai ini akan mempengaruhi konversi nilai mahasiswa"
   - [x] Info grade yang akan dihapus ditampilkan
   - [x] Button "Ya, Hapus" dan "Batal" tersedia
 
 - [ ] **Delete Validation**
+
   - [x] Check apakah ada nilai mahasiswa yang menggunakan bobot nilai ini
   - [x] Jika ada nilai mahasiswa, tampilkan warning: "X mahasiswa menggunakan grade ini"
   - [x] Opsi: Soft delete (set aktif = false) instead of hard delete jika ada nilai mahasiswa
@@ -166,6 +179,7 @@
 ### 8. Apply to Program Studi
 
 - [ ] **Bulk Apply Template**
+
   - [x] Button "Terapkan Template Standar" tersedia di index
   - [x] Modal konfirmasi muncul saat diklik
   - [x] Dropdown pilih program studi target (atau "Semua Program Studi")
@@ -182,6 +196,7 @@
 ### 9. Export & Import
 
 - [ ] **Export Excel**
+
   - [x] Button "Export Excel" tersedia
   - [x] Excel berisi semua bobot nilai, group by program studi
   - [x] Column: Program Studi, Grade, Nilai Min, Nilai Max, Bobot, Keterangan, Status
@@ -221,19 +236,20 @@
 
 - [ ] **Template Standar**
   - [x] Template default tersedia untuk quick setup:
-    * **A**: 85.00 - 100.00 = 4.00 (Sangat Baik)
-    * **AB**: 80.00 - 84.99 = 3.50 (Lebih dari Baik)
-    * **B**: 75.00 - 79.99 = 3.00 (Baik)
-    * **BC**: 70.00 - 74.99 = 2.50 (Lebih dari Cukup)
-    * **C**: 65.00 - 69.99 = 2.00 (Cukup)
-    * **D**: 55.00 - 64.99 = 1.00 (Kurang)
-    * **E**: 0.00 - 54.99 = 0.00 (Sangat Kurang)
+    - **A**: 85.00 - 100.00 = 4.00 (Sangat Baik)
+    - **AB**: 80.00 - 84.99 = 3.50 (Lebih dari Baik)
+    - **B**: 75.00 - 79.99 = 3.00 (Baik)
+    - **BC**: 70.00 - 74.99 = 2.50 (Lebih dari Cukup)
+    - **C**: 65.00 - 69.99 = 2.00 (Cukup)
+    - **D**: 55.00 - 64.99 = 1.00 (Kurang)
+    - **E**: 0.00 - 54.99 = 0.00 (Sangat Kurang)
   - [x] Template dapat disesuaikan per program studi
   - [x] Template dapat di-export sebagai Excel untuk modifikasi
 
 ### 13. Validation Testing
 
 - [ ] **Range Validation**
+
   - [x] Tidak boleh ada gap antara grade (misal: A max 100, AB min 80 → gap 79.99-80.00)
   - [x] Tidak boleh ada overlap antara grade (misal: A min 85, AB min 84 → overlap 84-85)
   - [x] Total range harus cover 0-100 (atau sesuai kebijakan institusi)
@@ -274,6 +290,7 @@
 ### 17. Accessibility & UI
 
 - [ ] **Responsive Design**
+
   - [x] Table responsive di desktop
   - [x] Table scrollable horizontal di tablet
   - [x] Card view untuk mobile

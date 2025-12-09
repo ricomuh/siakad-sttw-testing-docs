@@ -81,6 +81,7 @@
 ### 8. Chart & Visualisasi
 
 - [ ] **Grafik Distribusi IPK**
+
   - [x] Chart distribusi IPK per range (4.00, 3.50-3.99, 3.00-3.49, 2.50-2.99, < 2.50)
   - [x] Data chart akurat sesuai query database
   - [x] Warna bar chart sesuai standar (hijau = bagus, merah = risiko)
@@ -131,6 +132,7 @@
 ### 13. Data Filtering
 
 - [ ] **Filter Tahun Akademik**
+
   - [x] Dropdown tahun akademik tersedia
   - [x] Filtering data berdasarkan tahun akademik yang dipilih
   - [x] Default ke tahun akademik aktif

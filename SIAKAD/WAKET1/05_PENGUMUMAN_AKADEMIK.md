@@ -13,36 +13,42 @@
 ### 1. Operations to Test
 
 - [ ] **Index Pengumuman**
+
   - Method: `GET /waket1/pengumuman`
   - Action: `PengumumanAkademikController@index`
   - Menampilkan daftar pengumuman akademik
   - Response: View dengan list pengumuman
 
 - [ ] **Create Pengumuman**
+
   - Method: `GET /waket1/pengumuman/create`
   - Action: `PengumumanAkademikController@create`
   - Menampilkan form tambah pengumuman
   - Response: View form create
 
 - [ ] **Store Pengumuman**
+
   - Method: `POST /waket1/pengumuman`
   - Action: `PengumumanAkademikController@store`
   - Menyimpan pengumuman baru
   - Response: Redirect dengan success message
 
 - [ ] **Show Detail Pengumuman**
+
   - Method: `GET /waket1/pengumuman/{pengumuman}`
   - Action: `PengumumanAkademikController@show`
   - Menampilkan detail pengumuman
   - Response: View detail
 
 - [ ] **Edit Pengumuman**
+
   - Method: `GET /waket1/pengumuman/{pengumuman}/edit`
   - Action: `PengumumanAkademikController@edit`
   - Menampilkan form edit pengumuman
   - Response: View form edit
 
 - [ ] **Update Pengumuman**
+
   - Method: `PATCH /waket1/pengumuman/{pengumuman}`
   - Action: `PengumumanAkademikController@update`
   - Mengupdate pengumuman
@@ -67,6 +73,7 @@
 ### 3. Index View - Display
 
 - [ ] **Table Display**
+
   - [x] Column "Judul" ditampilkan
   - [x] Column "Kategori" ditampilkan (Akademik/Beasiswa/Event/Pengumuman Umum/Penting)
   - [x] Column "Target" ditampilkan (Semua/Program Studi Tertentu/Angkatan Tertentu)
@@ -77,6 +84,7 @@
   - [x] Column "Aksi" berisi button View, Edit, Delete
 
 - [ ] **Status Badge**
+
   - [x] Badge "Draft" dengan warna abu-abu
   - [x] Badge "Aktif" dengan warna hijau
   - [x] Badge "Kadaluarsa" dengan warna merah
@@ -91,17 +99,20 @@
 ### 4. Filter & Search
 
 - [ ] **Filter Status**
+
   - [x] Tabs filter status: "Aktif", "Draft", "Kadaluarsa", "Semua"
   - [x] Default tab "Aktif" saat pertama load
   - [x] Count badge jumlah per status ditampilkan
   - [x] Data ter-filter sesuai status yang dipilih
 
 - [ ] **Filter Kategori**
+
   - [x] Dropdown kategori: Akademik, Beasiswa, Event, Pengumuman Umum, Penting
   - [x] Option "Semua Kategori" tersedia
   - [x] Data ter-filter sesuai kategori yang dipilih
 
 - [ ] **Filter Prioritas**
+
   - [x] Dropdown prioritas: Biasa, Penting, Mendesak
   - [x] Option "Semua Prioritas" tersedia
   - [x] Data ter-filter sesuai prioritas yang dipilih
@@ -115,6 +126,7 @@
 ### 5. Create Pengumuman
 
 - [ ] **Form Fields**
+
   - [x] Input "Judul" (required, max 255 karakter)
   - [x] Textarea "Konten" (required, min 10 karakter) dengan rich text editor
   - [x] Dropdown "Kategori" (required): Akademik, Beasiswa, Event, Pengumuman Umum, Penting
@@ -157,6 +169,7 @@
 ### 7. Edit Pengumuman
 
 - [ ] **Form Pre-fill**
+
   - [x] Form ter-pre-fill dengan data pengumuman yang akan diedit
   - [x] Rich text editor ter-load dengan konten HTML
   - [x] File lampiran existing ditampilkan dengan link download
@@ -172,6 +185,7 @@
 ### 8. Delete Pengumuman
 
 - [ ] **Delete Confirmation**
+
   - [x] Modal konfirmasi muncul sebelum delete
   - [x] Info pengumuman yang akan dihapus ditampilkan (judul, tanggal)
   - [x] Warning: "Pengumuman ini akan dihapus permanen"
@@ -186,6 +200,7 @@
 ### 9. Show Detail Pengumuman
 
 - [ ] **Detail View**
+
   - [x] Judul pengumuman ditampilkan (font besar, bold)
   - [x] Badge kategori dan prioritas ditampilkan
   - [x] Tanggal mulai dan selesai ditampilkan
@@ -206,6 +221,7 @@
 ### 10. Publish vs Draft
 
 - [ ] **Save as Draft**
+
   - [x] Button "Simpan sebagai Draft" di form create/edit
   - [x] Status pengumuman = "Draft"
   - [x] Pengumuman tidak tampil di dashboard mahasiswa/dosen
@@ -222,6 +238,7 @@
 ### 11. Notifikasi System
 
 - [ ] **Send Notification**
+
   - [x] Checkbox "Kirim Notifikasi Email" di form
   - [x] Email notifikasi dikirim ke target users saat publish
   - [x] Target: Semua mahasiswa/dosen (jika Target = Semua)
@@ -240,6 +257,7 @@
 ### 12. Sorting & Pagination
 
 - [ ] **Sorting**
+
   - [x] Column "Tanggal Mulai" dapat di-sort (terbaru/terlama)
   - [x] Column "Prioritas" dapat di-sort (mendesak → penting → biasa)
   - [x] Column "Judul" dapat di-sort alphabetically
@@ -255,6 +273,7 @@
 ### 13. Scheduled Publishing
 
 - [ ] **Auto Publish**
+
   - [x] Pengumuman dengan status "Draft" auto menjadi "Aktif" saat tanggal mulai tercapai
   - [x] Background job (cron) check dan update status setiap hari jam 00:01
   - [x] Notifikasi otomatis terkirim saat auto publish (jika dicentang)
@@ -267,6 +286,7 @@
 ### 14. Statistics & Analytics
 
 - [ ] **View Tracking**
+
   - [x] Setiap view detail pengumuman di-track (increment view count)
   - [x] IP address dan user ID di-log untuk analytics
   - [x] Statistik views per hari ditampilkan di admin dashboard
@@ -280,6 +300,7 @@
 ### 15. Export & Print
 
 - [ ] **Export Excel**
+
   - [x] Button "Export Excel" di index page
   - [x] Excel berisi list pengumuman dengan semua column
   - [x] File naming: `Pengumuman_Akademik_{TanggalWaktu}.xlsx`
@@ -319,6 +340,7 @@
 ### 19. Accessibility & UI
 
 - [ ] **Responsive Design**
+
   - [x] Table responsive di desktop
   - [x] Card view untuk mobile
   - [x] Form accessible di semua device

@@ -30,6 +30,7 @@
 ### 3. Filter & Search
 
 - [ ] **Filter Program Studi**
+
   - [x] Dropdown program studi tersedia
   - [x] Filtering mahasiswa berdasarkan program studi yang dipilih
   - [x] Option "Semua Program Studi" tersedia
@@ -37,6 +38,7 @@
   - [x] Count mahasiswa update sesuai filter
 
 - [ ] **Filter Angkatan**
+
   - [x] Dropdown angkatan tersedia (2020, 2021, 2022, 2023, 2024)
   - [x] Filtering mahasiswa berdasarkan angkatan yang dipilih
   - [x] Option "Semua Angkatan" tersedia
@@ -44,6 +46,7 @@
   - [x] Multiple filter dapat dikombinasikan
 
 - [ ] **Filter Status Akademik**
+
   - [x] Dropdown status akademik tersedia (Aktif/Cuti/Lulus/DO/Mengundurkan Diri)
   - [x] Filtering berdasarkan status akademik yang dipilih
   - [x] Default filter ke "Aktif"
@@ -59,6 +62,7 @@
 ### 4. Table Display
 
 - [ ] **Column Mahasiswa**
+
   - [x] NIM ditampilkan
   - [x] Nama Mahasiswa ditampilkan
   - [x] Program Studi ditampilkan
@@ -67,6 +71,7 @@
   - [x] Semester Saat Ini ditampilkan (misal: Semester 5)
 
 - [ ] **Column Nilai**
+
   - [x] IPK (Indeks Prestasi Kumulatif) ditampilkan dengan 2 desimal
   - [x] IPS Terakhir (Indeks Prestasi Semester) ditampilkan dengan 2 desimal
   - [x] Total SKS Lulus ditampilkan
@@ -84,6 +89,7 @@
 ### 5. Sorting
 
 - [ ] **Sort by IPK**
+
   - [x] Column header "IPK" dapat diklik untuk sorting
   - [x] Sorting ascending (IPK terendah ke tertinggi)
   - [x] Sorting descending (IPK tertinggi ke terendah)
@@ -91,6 +97,7 @@
   - [x] Default sort descending (IPK tertinggi dulu)
 
 - [ ] **Sort by IPS**
+
   - [x] Column header "IPS Terakhir" dapat diklik untuk sorting
   - [x] Sorting ascending dan descending berfungsi
   - [x] Icon arrow ditampilkan
@@ -123,6 +130,7 @@
 ### 8. Mahasiswa Berisiko
 
 - [ ] **Highlight Berisiko**
+
   - [x] Row mahasiswa dengan IPK < 2.00 di-highlight merah
   - [x] Row mahasiswa dengan IPS terakhir < 2.00 di-highlight orange
   - [x] Row mahasiswa dengan SKS lulus < 50% di-highlight kuning
@@ -138,6 +146,7 @@
 ### 9. Export Data
 
 - [ ] **Export Excel**
+
   - [x] Button "Export Excel" tersedia
   - [x] Excel file ter-download dengan nama: `Monitoring_IPK_{TanggalWaktu}.xlsx`
   - [x] Excel berisi semua column yang ditampilkan di table
@@ -156,6 +165,7 @@
 ### 10. Statistik Summary
 
 - [ ] **Summary Cards**
+
   - [x] Total mahasiswa yang di-monitoring ditampilkan
   - [x] Rata-rata IPK ditampilkan dengan 2 desimal
   - [x] Rata-rata IPS terakhir ditampilkan

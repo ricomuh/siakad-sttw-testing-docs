@@ -13,18 +13,21 @@
 ### 1. Operations to Test
 
 - [ ] **Index Revisi Nilai**
+
   - Method: `GET /waket1/revisi-nilai`
   - Action: `RevisiNilaiController@index`
   - Menampilkan daftar revisi nilai yang menunggu approval
   - Response: View dengan list revisi nilai
 
 - [ ] **Show Detail Revisi**
+
   - Method: `GET /waket1/revisi-nilai/{revisiNilai}`
   - Action: `RevisiNilaiController@show`
   - Menampilkan detail revisi nilai
   - Response: View dengan detail revisi
 
 - [ ] **Approve Revisi**
+
   - Method: `POST /waket1/revisi-nilai/{revisiNilai}/approve`
   - Action: `RevisiNilaiController@approve`
   - Menyetujui revisi nilai
@@ -48,6 +51,7 @@
 ### 3. Index View - Filter & Search
 
 - [ ] **Filter Status**
+
   - [x] Tabs filter status tersedia: "Pending", "Disetujui", "Ditolak", "Semua"
   - [x] Default tab "Pending" aktif saat pertama load
   - [x] Count badge jumlah per status ditampilkan di tab
@@ -55,12 +59,14 @@
   - [x] Tab aktif di-highlight dengan warna berbeda
 
 - [ ] **Filter Program Studi**
+
   - [x] Dropdown program studi tersedia
   - [x] Filtering revisi berdasarkan program studi mahasiswa
   - [x] Option "Semua Program Studi" tersedia
   - [x] Multiple filter dapat dikombinasikan
 
 - [ ] **Filter Dosen Pengaju**
+
   - [x] Dropdown dosen tersedia
   - [x] Filtering revisi berdasarkan dosen yang mengajukan
   - [x] List dosen sorted alphabetically
@@ -76,6 +82,7 @@
 ### 4. Table Display
 
 - [ ] **Column Informasi**
+
   - [x] Tanggal Pengajuan ditampilkan (format: DD MMM YYYY HH:mm)
   - [x] NIM Mahasiswa ditampilkan
   - [x] Nama Mahasiswa ditampilkan
@@ -84,6 +91,7 @@
   - [x] Program Studi ditampilkan
 
 - [ ] **Column Nilai**
+
   - [x] Nilai Lama ditampilkan (misal: B = 3.00)
   - [x] Nilai Baru yang diajukan ditampilkan (misal: A = 4.00)
   - [x] Selisih nilai ditampilkan dengan warna (hijau jika naik, merah jika turun)
@@ -91,6 +99,7 @@
   - [x] Format nilai: Huruf (Angka) misal: A (4.00)
 
 - [ ] **Column Status**
+
   - [x] Badge status ditampilkan: Pending (kuning), Disetujui (hijau), Ditolak (merah)
   - [x] Status sesuai dengan field `status` di database
   - [x] Tooltip muncul saat hover badge menjelaskan arti status
@@ -104,6 +113,7 @@
 ### 5. Detail Revisi
 
 - [ ] **Informasi Mahasiswa**
+
   - [x] Foto mahasiswa ditampilkan (jika ada)
   - [x] NIM ditampilkan
   - [x] Nama lengkap mahasiswa ditampilkan
@@ -112,6 +122,7 @@
   - [x] Status akademik ditampilkan
 
 - [ ] **Informasi Mata Kuliah**
+
   - [x] Kode mata kuliah ditampilkan
   - [x] Nama mata kuliah ditampilkan
   - [x] SKS ditampilkan
@@ -119,6 +130,7 @@
   - [x] Tahun akademik ditampilkan (misal: 2024/2025 Ganjil)
 
 - [ ] **Informasi Dosen**
+
   - [x] NIP dosen pengaju ditampilkan
   - [x] Nama lengkap dosen ditampilkan
   - [x] Status sebagai dosen pengampu mata kuliah tersebut ditampilkan
@@ -134,12 +146,14 @@
 ### 6. Approve Revisi
 
 - [ ] **Approval Form**
+
   - [x] Modal konfirmasi muncul sebelum approve
   - [x] Summary perubahan ditampilkan di modal
   - [x] Input catatan approval (opsional) tersedia
   - [x] Button "Ya, Setujui" dan "Batal" tersedia
 
 - [ ] **Approval Process**
+
   - [x] Status revisi berubah dari "Pending" menjadi "Disetujui"
   - [x] Field `approved_by` diisi dengan user ID Waket1
   - [x] Field `approved_at` diisi dengan timestamp saat approve
@@ -147,6 +161,7 @@
   - [x] Database transaction untuk ensure atomicity
 
 - [ ] **Update Nilai Mahasiswa**
+
   - [x] Record `NilaiMahasiswa` ter-update dengan nilai baru
   - [x] Komponen nilai (UTS/UAS/Tugas) ter-update sesuai revisi
   - [x] Nilai akhir ter-recalculate dengan benar
@@ -163,6 +178,7 @@
 ### 7. Reject Revisi
 
 - [ ] **Rejection Form**
+
   - [x] Modal konfirmasi muncul sebelum reject
   - [x] Summary revisi ditampilkan di modal
   - [x] Input alasan penolakan (wajib) tersedia
@@ -170,6 +186,7 @@
   - [x] Button "Ya, Tolak" dan "Batal" tersedia
 
 - [ ] **Rejection Process**
+
   - [x] Status revisi berubah dari "Pending" menjadi "Ditolak"
   - [x] Field `rejected_by` diisi dengan user ID Waket1
   - [x] Field `rejected_at` diisi dengan timestamp saat reject
@@ -177,6 +194,7 @@
   - [x] Database transaction untuk ensure atomicity
 
 - [ ] **Nilai Tidak Berubah**
+
   - [x] Record `NilaiMahasiswa` TIDAK ter-update (tetap nilai lama)
   - [x] IPK mahasiswa TIDAK berubah
   - [x] IPS semester terkait TIDAK berubah
@@ -191,12 +209,14 @@
 ### 8. Validation Rules
 
 - [ ] **Approval Validation**
+
   - [x] Hanya revisi dengan status "Pending" yang dapat di-approve
   - [x] Revisi yang sudah "Disetujui" tidak dapat di-approve lagi
   - [x] Revisi yang sudah "Ditolak" tidak dapat di-approve
   - [x] Error message jelas jika validasi gagal
 
 - [ ] **Rejection Validation**
+
   - [x] Hanya revisi dengan status "Pending" yang dapat di-reject
   - [x] Alasan penolakan wajib diisi (min 10 karakter)
   - [x] Revisi yang sudah "Disetujui" tidak dapat di-reject
@@ -211,6 +231,7 @@
 ### 9. Sorting & Pagination
 
 - [ ] **Sorting**
+
   - [x] Column "Tanggal Pengajuan" dapat di-sort (terbaru/terlama)
   - [x] Column "NIM" dapat di-sort
   - [x] Column "Mata Kuliah" dapat di-sort alphabetically
@@ -226,6 +247,7 @@
 ### 10. Bulk Actions
 
 - [ ] **Select Multiple**
+
   - [x] Checkbox untuk select individual revisi
   - [x] Checkbox "Select All" di header table
   - [x] Counter jumlah revisi yang dipilih ditampilkan
@@ -233,6 +255,7 @@
   - [x] Button "Reject Selected" tersedia jika ada yang dipilih
 
 - [ ] **Bulk Approve**
+
   - [x] Modal konfirmasi bulk approve muncul
   - [x] List revisi yang akan di-approve ditampilkan
   - [x] Proses approve untuk semua revisi yang dipilih
@@ -248,6 +271,7 @@
 ### 11. Export & Print
 
 - [ ] **Export Excel**
+
   - [x] Button "Export Excel" tersedia
   - [x] Excel berisi semua revisi sesuai filter aktif
   - [x] Column: Tanggal, NIM, Nama, Mata Kuliah, Dosen, Nilai Lama, Nilai Baru, Status
@@ -300,6 +324,7 @@
 ### 16. Accessibility & UI
 
 - [ ] **Responsive Design**
+
   - [x] Table responsive di desktop
   - [x] Table scrollable horizontal di tablet
   - [x] Card view untuk mobile (stack vertical)
