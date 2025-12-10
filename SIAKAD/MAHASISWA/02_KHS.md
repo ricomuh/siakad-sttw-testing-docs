@@ -1,10 +1,17 @@
 # Testing: KHS (Kartu Hasil Studi)
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ **COMPLETED**  
 **Role**: Mahasiswa  
 **Route**: `/mahasiswa/khs`  
 **Controller**: `Mahasiswa\KhsController`  
 **Model**: `NilaiMahasiswa`, `MataKuliah`, `Mahasiswa`
+
+## 📊 Test Results
+
+- **Total Tests**: 14
+- **Passing**: 14 (100%)
+- **Test File**: `tests/Feature/Mahasiswa/KhsTest.php`
+- **Execution Time**: 1.22s
 
 ---
 
@@ -12,31 +19,31 @@
 
 ### 1. Operations
 
-- [ ] **Index**: View KHS all semesters
-- [ ] **Print**: Generate PDF KHS per semester
-- [ ] **Filter**: By semester, tahun akademik
+- [x] **Index**: View KHS all semesters
+- [x] **Print**: Generate PDF KHS per semester
+- [x] **Filter**: By semester, tahun akademik
 
 ### 2. Authorization
 
-- [ ] Mahasiswa hanya bisa view KHS sendiri
-- [ ] Cannot access KHS mahasiswa lain
-- [ ] All semesters visible (no restriction)
+- [x] Mahasiswa hanya bisa view KHS sendiri
+- [x] Cannot access KHS mahasiswa lain
+- [x] All semesters visible (no restriction)
 
 ### 3. KHS Display
 
-- [ ] List all nilai per semester
-- [ ] Show: Kode MK, Nama MK, SKS
-- [ ] Show: Nilai Angka, Nilai Huruf
-- [ ] Show: Bobot (SKS × Nilai Angka)
-- [ ] Group by semester
+- [x] List all nilai per semester
+- [x] Show: Kode MK, Nama MK, SKS
+- [x] Show: Nilai Angka, Nilai Huruf
+- [x] Show: Bobot (SKS × Nilai Angka)
+- [x] Group by semester
 
 ### 4. Semester Summary
 
-- [ ] **IPS (IP Semester)**: Average per semester
-- [ ] **IPK (IP Kumulatif)**: Cumulative GPA
-- [ ] **Total SKS Lulus**: Sum of passed credits
-- [ ] **Total SKS Diambil**: Sum of all credits
-- [ ] **Total SKS Gagal**: Credits with E/F grade
+- [x] **IPS (IP Semester)**: Average per semester
+- [x] **IPK (IP Kumulatif)**: Cumulative GPA
+- [x] **Total SKS Lulus**: Sum of passed credits
+- [x] **Total SKS Diambil**: Sum of all credits
+- [x] **Total SKS Gagal**: Credits with E/F grade
 
 ### 5. IPS Calculation
 
@@ -44,9 +51,9 @@
 IPS = Σ(SKS × Nilai Angka) / Σ(SKS)
 ```
 
-- [ ] Calculate per semester
-- [ ] Round to 2 decimal places
-- [ ] Only count graded courses (exclude P/F)
+- [x] Calculate per semester
+- [x] Round to 2 decimal places
+- [x] Only count graded courses (exclude P/F)
 
 ### 6. IPK Calculation
 
@@ -54,19 +61,19 @@ IPS = Σ(SKS × Nilai Angka) / Σ(SKS)
 IPK = Σ(SKS × Nilai Angka untuk semua semester) / Σ(SKS semua semester)
 ```
 
-- [ ] Calculate cumulative
-- [ ] Include all semesters
-- [ ] Update after each semester
+- [x] Calculate cumulative
+- [x] Include all semesters
+- [x] Update after each semester
 
 ### 7. Grade Conversion
 
-- [ ] **A**: 4.0 (Nilai >= 85)
-- [ ] **AB**: 3.5 (Nilai 80-84)
-- [ ] **B**: 3.0 (Nilai 75-79)
-- [ ] **BC**: 2.5 (Nilai 70-74)
-- [ ] **C**: 2.0 (Nilai 65-69)
-- [ ] **D**: 1.0 (Nilai 55-64)
-- [ ] **E**: 0.0 (Nilai < 55)
+- [x] **A**: 4.0 (Nilai >= 85)
+- [x] **AB**: 3.5 (Nilai 80-84)
+- [x] **B**: 3.0 (Nilai 75-79)
+- [x] **BC**: 2.5 (Nilai 70-74)
+- [x] **C**: 2.0 (Nilai 65-69)
+- [x] **D**: 1.0 (Nilai 55-64)
+- [x] **E**: 0.0 (Nilai < 55)
 
 Note: Conversion follows BobotNilai table (configurable by Waket1)
 

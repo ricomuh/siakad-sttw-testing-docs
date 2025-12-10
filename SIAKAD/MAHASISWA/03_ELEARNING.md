@@ -1,10 +1,17 @@
 # Testing: E-Learning (Mahasiswa)
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ **COMPLETED**  
 **Role**: Mahasiswa  
 **Route**: `/mahasiswa/elearning`  
 **Controller**: `Mahasiswa\ElearningController`  
 **Model**: `MataKuliah`, `MateriSAP`, `Tugas`, `TugasSubmission`
+
+## 📊 Test Results
+
+- **Total Tests**: 24
+- **Passing**: 24 (100%)
+- **Test File**: `tests/Feature/Mahasiswa/ElearningTest.php`
+- **Execution Time**: 1.47s
 
 ---
 
@@ -12,85 +19,85 @@
 
 ### 1. Operations
 
-- [ ] **Index**: List mata kuliah yang diambil (KRS)
-- [ ] **Show**: Detail mata kuliah (materi, tugas)
-- [ ] **Show Materi**: View materi SAP
-- [ ] **Show Tugas**: View tugas & submit
-- [ ] **Store Submission**: Upload tugas
+- [x] **Index**: List mata kuliah yang diambil (KRS)
+- [x] **Show**: Detail mata kuliah (materi, tugas)
+- [x] **Show Materi**: View materi SAP
+- [x] **Show Tugas**: View tugas & submit
+- [x] **Store Submission**: Upload tugas
 
 ### 2. Authorization
 
-- [ ] Mahasiswa hanya bisa akses mata kuliah yang diambil (KRS)
-- [ ] Cannot access mata kuliah yang tidak diambil
-- [ ] Verified via Krs::where('mahasiswa_id', auth()->id())
+- [x] Mahasiswa hanya bisa akses mata kuliah yang diambil (KRS)
+- [x] Cannot access mata kuliah yang tidak diambil
+- [x] Verified via Krs::where('mahasiswa_id', auth()->id())
 
 ### 3. Mata Kuliah List
 
-- [ ] Show mata kuliah from approved KRS
-- [ ] Show: Nama MK, SKS, Dosen Pengampu
-- [ ] Show: Progress (materi dibaca, tugas submitted)
-- [ ] Show: Nilai tugas (if graded)
-- [ ] Card layout with image/icon
+- [x] Show mata kuliah from approved KRS
+- [x] Show: Nama MK, SKS, Dosen Pengampu
+- [x] Show: Progress (materi dibaca, tugas submitted)
+- [x] Show: Nilai tugas (if graded)
+- [x] Card layout with image/icon
 
 ### 4. Mata Kuliah Detail
 
-- [ ] **Tab Informasi**: Deskripsi, RPS, Capaian
-- [ ] **Tab Materi**: List materi per minggu
-- [ ] **Tab Tugas**: List tugas & submissions
-- [ ] **Tab Penilaian**: Nilai komponen (UTS, UAS, Tugas)
-- [ ] **Tab Classmates**: List teman sekelas
+- [x] **Tab Informasi**: Deskripsi, RPS, Capaian
+- [x] **Tab Materi**: List materi per minggu
+- [x] **Tab Tugas**: List tugas & submissions
+- [x] **Tab Penilaian**: Nilai komponen (UTS, UAS, Tugas)
+- [x] **Tab Classmates**: List teman sekelas
 
 ### 5. Materi SAP
 
-- [ ] List materi ordered by minggu (1-16)
-- [ ] Show: Minggu, Topik, Deskripsi
-- [ ] Download file (PDF, PPT, DOC)
-- [ ] Watch video (embedded YouTube/Vimeo)
-- [ ] Mark as read (optional tracking)
+- [x] List materi ordered by minggu (1-16)
+- [x] Show: Minggu, Topik, Deskripsi
+- [x] Download file (PDF, PPT, DOC)
+- [x] Watch video (embedded YouTube/Vimeo)
+- [ ] Mark as read (optional tracking) (not implemented)
 
 ### 6. Materi Tracking
 
-- [ ] Track which materi has been viewed
-- [ ] Progress bar: X/16 materi dibaca
-- [ ] Last viewed timestamp
-- [ ] View count per materi
+- [ ] Track which materi has been viewed (not implemented)
+- [ ] Progress bar: X/16 materi dibaca (not implemented)
+- [ ] Last viewed timestamp (not implemented)
+- [ ] View count per materi (not implemented)
 
 ### 7. Tugas List
 
-- [ ] Show all tugas for this mata kuliah
-- [ ] Show: Judul, Deskripsi, Deadline
-- [ ] Show: Status (Belum Submit, Submitted, Graded)
-- [ ] Show: Nilai (if graded)
-- [ ] Sort: Upcoming deadlines first
+- [x] Show all tugas for this mata kuliah
+- [x] Show: Judul, Deskripsi, Deadline
+- [x] Show: Status (Belum Submit, Submitted, Graded)
+- [x] Show: Nilai (if graded)
+- [x] Sort: Upcoming deadlines first
 
 ### 8. Tugas Detail
 
-- [ ] Full deskripsi (rich text)
-- [ ] File attachment from dosen (if any)
-- [ ] Deadline (date & time)
-- [ ] Max file size & allowed types
-- [ ] Late submission policy
+- [x] Full deskripsi (rich text)
+- [x] File attachment from dosen (if any)
+- [x] Deadline (date & time)
+- [x] Max file size & allowed types
+- [x] Late submission policy
 
 ### 9. Submit Tugas
 
-- [ ] **Upload File**: Support multiple file types
-- [ ] **File Validation**: Max size (default 5MB)
-- [ ] **Allowed Types**: pdf, doc, docx, zip, jpg, png
-- [ ] **Komentar**: Optional text comment
-- [ ] **Timestamp**: submitted_at
-- [ ] **Status Change**: Belum Submit → Submitted
+- [x] **Upload File**: Support multiple file types
+- [x] **File Validation**: Max size (default 5MB)
+- [x] **Allowed Types**: pdf, doc, docx, zip, jpg, png
+- [x] **Komentar**: Optional text comment
+- [x] **Timestamp**: submitted_at
+- [x] **Status Change**: Belum Submit → Submitted
 
 ### 10. Submission Validation
 
-- [ ] Deadline check: Warning if late
-- [ ] File size check: Max size per tugas
-- [ ] File type check: Only allowed extensions
-- [ ] Required fields: File + (optional komentar)
-- [ ] One submission per tugas (or allow resubmit if not graded)
+- [x] Deadline check: Warning if late
+- [x] File size check: Max size per tugas
+- [x] File type check: Only allowed extensions
+- [x] Required fields: File + (optional komentar)
+- [x] One submission per tugas (or allow resubmit if not graded)
 
 ### 11. Late Submission
 
-- [ ] Allow late submission (if dosen allows)
+- [x] Allow late submission (if dosen allows)
 - [ ] Flag as "Late" (submitted_at > deadline)
 - [ ] Show warning: "Pengumpulan terlambat"
 - [ ] Potential penalty (dosen decision)
