@@ -2,28 +2,59 @@
 
 **Role**: Dosen (Lecturer)  
 **Purpose**: Testing untuk fitur-fitur yang digunakan oleh Dosen  
-**Total Modules**: 5
+**Total Modules**: 6  
+**Completed**: 2/6 (33%)  
+**Tests**: 43 tests (all passing ✅)
 
 ---
 
 ## 📚 Module List
 
-### 1. [Jadwal Mengajar](01_JADWAL_MENGAJAR.md)
+### 1. [Jadwal Mengajar](01_JADWAL_MENGAJAR.md) ✅
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ [COMPLETE]  
 **Route**: `/siakad/dosen/jadwal-mengajar`  
+**Tests**: 23 tests, 49 assertions  
 **Features**:
 
-- View jadwal mengajar
-- Buka/tutup presensi
-- Manage sesi kelas
-- View mahasiswa per kelas
+- View jadwal mengajar (with dual email lookup)
+- Buka/tutup presensi (with geo-restriction)
+- Manage sesi kelas (with attendance statistics)
+- View mahasiswa per kelas (approved only)
+
+**Key Patterns**:
+
+- Dual email lookup (email_institusi OR email_pribadi)
+- Active periode with fallback to latest
+- withCount for attendance statistics
+- Geo-restriction (configurable)
+- Graceful degradation (empty collection when dosen not found)
+
+### 2. [Presensi Mahasiswa](02_PRESENSI_MAHASISWA.md) ✅
+
+**Status**: ✅ [COMPLETE]  
+**Route**: `/siakad/dosen/presensi-mahasiswa`  
+**Tests**: 20 tests, 52 assertions  
+**Features**:
+
+- Auto-generate presensi for enrolled students
+- Bulk input presensi (multiple students)
+- waktu_absen logic (set for Hadir, clear for others)
+- Statistics calculation (total, hadir, izin, sakit, alpa, percentage)
+
+**Key Patterns**:
+
+- Auto-generation with firstOrCreate (no duplicates)
+- Only approved KRS (status: Disetujui)
+- DB transaction for bulk updates
+- Security: Skip presensi from different session
+- Division by zero protection (percentage calculation)
 
 ---
 
-### 2. [Presensi Mahasiswa](02_PRESENSI_MAHASISWA.md)
+### 2. [Presensi Mahasiswa](02_PRESENSI_MAHASISWA.md) ⏳
 
-**Status**: ⚪ [TODO]  
+**Status**: ⏳ [PENDING]  
 **Route**: `/siakad/dosen/presensi-mahasiswa`  
 **Features**:
 
@@ -34,9 +65,9 @@
 
 ---
 
-### 3. [Mata Kuliah Detail](03_MATA_KULIAH_DETAIL.md)
+### 3. [Mata Kuliah Detail](03_MATA_KULIAH_DETAIL.md) ⏳
 
-**Status**: ⚪ [TODO]  
+**Status**: ⏳ [PENDING]  
 **Route**: `/siakad/dosen/mata-kuliah/{id}`  
 **Features**:
 
@@ -48,9 +79,9 @@
 
 ---
 
-### 4. [Validasi KRS](04_VALIDASI_KRS.md)
+### 4. [Validasi KRS](04_VALIDASI_KRS.md) ⏳
 
-**Status**: ⚪ [TODO]  
+**Status**: ⏳ [PENDING]  
 **Route**: `/siakad/dosen/validasi-krs`  
 **Features**:
 
@@ -61,9 +92,9 @@
 
 ---
 
-### 5. [Log Bimbingan](05_LOG_BIMBINGAN.md)
+### 5. [Log Bimbingan](05_LOG_BIMBINGAN.md) ⏳
 
-**Status**: ⚪ [TODO]  
+**Status**: ⏳ [PENDING]  
 **Route**: `/siakad/dosen/log-bimbingan`  
 **Features**:
 

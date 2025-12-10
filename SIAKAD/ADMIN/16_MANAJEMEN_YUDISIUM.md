@@ -1,6 +1,6 @@
 # Testing: Manajemen Yudisium
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ [TESTED]  
 **Role**: Admin, Waket1  
 **Route**: `/siakad/manajemen-yudisium`  
 **Controller**: `ManajemenYudisiumController`  

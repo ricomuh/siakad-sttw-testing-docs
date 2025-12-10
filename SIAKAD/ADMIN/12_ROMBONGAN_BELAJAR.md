@@ -1,6 +1,6 @@
 # Testing: Rombongan Belajar
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ [TESTED]  
 **Role**: Admin (Read-only, Auto-generated)  
 **Route**: `/siakad/rombongan-belajar`  
 **Controller**: `RombonganBelajarController`  

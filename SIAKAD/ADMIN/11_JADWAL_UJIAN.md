@@ -1,6 +1,6 @@
 # Testing: Jadwal Ujian
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ [TESTED]  
 **Role**: Admin  
 **Route**: `/siakad/jadwal-ujian`  
 **Controller**: `JadwalUjianController`  

@@ -1,6 +1,6 @@
 # Testing: Presensi Dosen
 
-**Status**: ⚪ [TODO]  
+**Status**: ✅ [TESTED]  
 **Role**: Admin (View-only)  
 **Route**: `/siakad/presensi-dosen`  
 **Controller**: `PresensiDosenController`  

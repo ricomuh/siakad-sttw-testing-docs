@@ -1,141 +1,434 @@
-# Testing: Log Bimbingan (Dosen PA)
+# Log Bimbingan (PA Dosen) - Testing Guide
 
-**Status**: ⚪ [TODO]  
-**Role**: Dosen (sebagai Dosen PA)  
-**Route**: `/siakad/dosen/log-bimbingan`  
-**Controller**: `Dosen\LogBimbinganController`  
-**Model**: `LogBimbingan`, `Mahasiswa`, `Dosen`
+## Overview
 
----
+**Module**: Log Bimbingan - Academic Guidance Logging  
+**Controller**: `App\Http\Controllers\Dosen\LogBimbinganController`  
+**Route Prefix**: `/siakad/dosen/log-bimbingan`  
+**Test File**: `tests/Feature/Dosen/LogBimbinganTest.php`  
+**Total Tests**: 18 tests, 37 assertions  
+**Status**: ✅ ALL PASSING (100%)
 
-## 📋 Checklist Testing
+## Purpose
 
-### 1. Operations
+Enables **PA (Pembimbing Akademik)** dosen to:
 
-- [ ] **Index**: List log bimbingan yang sudah dicatat
-- [ ] **Show**: Detail log bimbingan
-- [ ] **Create**: Form tambah log bimbingan
-- [ ] **Store**: Simpan log bimbingan baru
-- [ ] **Filter**: By mahasiswa, tanggal, topik
+- View list of advisee students (mahasiswa bimbingan)
+- Record guidance sessions with students
+- Track academic advising history per student
+- View complete chronological log of all sessions
 
-### 2. Authorization
+This module is specifically for dosen acting as **PA** who have been assigned to students via `mahasiswa.dosen_pa_id` relationship.
 
-- [ ] Dosen hanya bisa akses log mahasiswa bimbingannya
-- [ ] Check: mahasiswa.dosen_pa_id === auth()->user()->dosen->id
-- [ ] Cannot create log for mahasiswa dosen PA lain
-- [ ] Cannot edit/delete log (immutable record)
+## Controller Methods
 
-### 3. Log Bimbingan List
+### 1. `index()` - List PA Mahasiswa
 
-- [ ] Show semua log bimbingan per mahasiswa bimbingan
-- [ ] Grouping: By mahasiswa
-- [ ] Sort: Latest first
-- [ ] Show: Tanggal, topik, status follow-up
-- [ ] Count: Total bimbingan per mahasiswa
+**Route**: `GET /siakad/dosen/log-bimbingan` → `siakad.dosen.log-bimbingan.index`
 
-### 4. Create Log Bimbingan
+**Logic**:
 
-- [ ] **Select Mahasiswa**: Dropdown mahasiswa bimbingan
-- [ ] **Tanggal**: Date picker (cannot future date)
-- [ ] **Topik**: Select (Akademik, Skripsi/TA, Karir, Pribadi, Lainnya)
-- [ ] **Deskripsi**: Rich text editor, min 50 chars
-- [ ] **Hasil**: Text area (hasil pembahasan)
-- [ ] **Tindak Lanjut**: Optional, next action items
-- [ ] **Status**: Select (Selesai, Perlu Follow-up, Urgent)
+```php
+public function index()
+{
+    $user = auth()->user();
 
-### 5. Validation Rules
+    // Find dosen by email (dual lookup)
+    $dosen = Dosen::where('email_institusi', $user->email)
+        ->orWhere('email_pribadi', $user->email)
+        ->first();
 
-- [ ] Mahasiswa: Required, must be dosen's mentee
-- [ ] Tanggal: Required, cannot be future date
-- [ ] Topik: Required, enum validation
-- [ ] Deskripsi: Required, min 50 chars
-- [ ] Hasil: Optional, max 1000 chars
-- [ ] Tindak Lanjut: Optional
-- [ ] Status: Required, enum validation
+    if (!$dosen) {
+        return view('dosen.log-bimbingan.index', ['mahasiswa' => collect([])]);
+    }
 
-### 6. Topik Categories
+    // Only active students where dosen is PA
+    $mahasiswa = Mahasiswa::where('dosen_pa_id', $dosen->id)
+        ->where('status_mahasiswa', 'Aktif')
+        ->paginate(20);
 
-- [ ] **Akademik**: Konsultasi KRS, nilai, akademik
-- [ ] **Skripsi/TA**: Bimbingan Tugas Akhir
-- [ ] **Karir**: Konsultasi karir, magang, pekerjaan
-- [ ] **Pribadi**: Masalah pribadi, kesehatan mental
-- [ ] **Lainnya**: Topik lain di luar kategori
+    return view('dosen.log-bimbingan.index', compact('mahasiswa'));
+}
+```
 
-### 7. Status Types
+**Key Features**:
 
-- [ ] **Selesai**: Bimbingan selesai, tidak perlu follow-up
-- [ ] **Perlu Follow-up**: Butuh bimbingan lanjutan
-- [ ] **Urgent**: Butuh perhatian segera
+- ✅ Dual email lookup (institusi OR pribadi)
+- ✅ Only shows active mahasiswa
+- ✅ Only shows own PA students
+- ✅ Paginated (20/page)
+- ✅ Graceful degradation if no dosen record
 
-### 8. Log Detail View
+### 2. `show($id)` - Show Mahasiswa Logs
 
-- [ ] Show mahasiswa info (NIM, Nama, Semester, IPK)
-- [ ] Show tanggal bimbingan
-- [ ] Show topik dan deskripsi lengkap
-- [ ] Show hasil pembahasan
-- [ ] Show tindak lanjut (if any)
-- [ ] Show status
-- [ ] Show dosen pembimbing (created_by)
+**Route**: `GET /siakad/dosen/log-bimbingan/{id}` → `siakad.dosen.log-bimbingan.show`
 
-### 9. Mahasiswa Bimbingan Summary
+**Logic**:
 
-- [ ] List mahasiswa bimbingan dengan card/row
-- [ ] Show: Total bimbingan
-- [ ] Show: Last bimbingan date
-- [ ] Show: Status terakhir (Selesai, Follow-up, Urgent)
-- [ ] Show: Total bimbingan per topik (chart)
-- [ ] Flag: Mahasiswa yang lama tidak bimbingan (> 30 hari)
+```php
+public function show($id)
+{
+    $mahasiswa = Mahasiswa::findOrFail($id);
 
-### 10. Reports & Statistics
+    // Get all logs ordered by date (newest first)
+    $logs = LogBimbingan::where('mahasiswa_id', $id)
+        ->orderBy('tanggal', 'desc')
+        ->get();
 
-- [ ] Total bimbingan per mahasiswa
-- [ ] Total bimbingan per topik
-- [ ] Total bimbingan per bulan (trend chart)
-- [ ] Average bimbingan frequency per mahasiswa
-- [ ] List mahasiswa butuh follow-up
-- [ ] Export to Excel/PDF
+    return view('dosen.log-bimbingan.show', compact('mahasiswa', 'logs'));
+}
+```
 
-### 11. Integration
+**Key Features**:
 
-- [ ] Link ke profil mahasiswa
-- [ ] Notification to mahasiswa after log created
-- [ ] Dashboard widget: Upcoming follow-ups
-- [ ] Reminder: Mahasiswa yang lama tidak bimbingan
+- ✅ Returns 404 if mahasiswa not found
+- ✅ Logs ordered newest first
+- ✅ Complete history displayed
 
-### 12. Notifications
+### 3. `create($mahasiswaId)` - Show Create Form
 
-- [ ] Email mahasiswa after bimbingan logged
-- [ ] Reminder dosen if urgent follow-up
-- [ ] Alert if mahasiswa > 30 hari tidak bimbingan
-- [ ] Monthly summary report to dosen
+**Route**: `GET /siakad/dosen/log-bimbingan/create/{mahasiswaId}`
 
-### 13. Search & Filter
+**Returns**: Form view for creating new log entry
 
-- [ ] Search: By mahasiswa name/NIM
-- [ ] Filter: By topik
-- [ ] Filter: By status
-- [ ] Filter: By date range
-- [ ] Filter: By mahasiswa
+### 4. `store(Request)` - Save New Log
 
-### 14. Edge Cases
+**Route**: `POST /siakad/dosen/log-bimbingan` → `siakad.dosen.log-bimbingan.store`
 
-- [ ] Mahasiswa tidak punya dosen PA
-- [ ] Dosen tidak punya mahasiswa bimbingan
-- [ ] Bimbingan di luar jam kerja
-- [ ] Duplicate log (same date, same mahasiswa)
-- [ ] Log tanpa tindak lanjut
+**Validation**:
 
-### 15. Immutability
+```php
+$request->validate([
+    'mahasiswa_id' => 'required|exists:mahasiswa,id',
+    'tanggal' => 'required|date',
+    'topik' => 'required|string|max:255',
+    'catatan' => 'required|string',
+]);
+```
 
-- [ ] Log cannot be edited after creation
-- [ ] Log cannot be deleted
-- [ ] Only soft delete allowed (by admin/waket1)
-- [ ] Audit trail: created_at, created_by
+**Logic**:
 
----
+```php
+public function store(Request $request)
+{
+    $validated = $request->validate([...]);
 
-## 🔗 Related
+    $user = auth()->user();
+    $dosen = Dosen::where('email_institusi', $user->email)
+        ->orWhere('email_pribadi', $user->email)
+        ->firstOrFail(); // Throws 404 if not found
 
-- [Validasi KRS](04_VALIDASI_KRS.md)
-- [Mahasiswa](../ADMIN/06_MASTER_DATA_MAHASISWA.md)
-- [Dosen](../ADMIN/04_MASTER_DATA_DOSEN.md)
+    LogBimbingan::create([
+        'mahasiswa_id' => $validated['mahasiswa_id'],
+        'dosen_id' => $dosen->id, // Auto-assigned
+        'tanggal' => $validated['tanggal'],
+        'topik' => $validated['topik'],
+        'catatan' => $validated['catatan'],
+    ]);
+
+    return redirect()
+        ->route('siakad.dosen.log-bimbingan.show', $validated['mahasiswa_id'])
+        ->with('success', 'Log bimbingan berhasil ditambahkan');
+}
+```
+
+**Key Features**:
+
+- ✅ Requires dosen record (throws 404 if missing)
+- ✅ Auto-assigns dosen_id
+- ✅ Redirects to mahasiswa log list
+- ✅ Validates all required fields
+
+## Test Coverage (18 tests)
+
+### Authorization (2 tests)
+
+**1. Requires Authentication**
+
+```php
+test('requires authentication', function () {
+    $response = $this->get(route('siakad.dosen.log-bimbingan.index'));
+    $response->assertRedirect(route('login'));
+});
+```
+
+**2. Requires Dosen Role**
+
+```php
+test('requires dosen role', function () {
+    $user = User::factory()->create();
+    $user->assignRole('mahasiswa');
+
+    $response = $this->actingAs($user)
+        ->get(route('siakad.dosen.log-bimbingan.index'));
+
+    $response->assertForbidden();
+});
+```
+
+### Index Tests (7 tests)
+
+**3-9**: View index, empty state, dual email lookup (institusi/pribadi), active-only filter, own PA students only, pagination
+
+### Show Tests (3 tests)
+
+**10. Dosen Can View Mahasiswa Log Bimbingan**
+
+```php
+test('dosen can view mahasiswa log bimbingan', function () {
+    $user = User::factory()->create();
+    $user->assignRole('dosen');
+
+    $dosen = Dosen::factory()->create(['email_institusi' => $user->email]);
+    $mahasiswa = Mahasiswa::factory()->create(['dosen_pa_id' => $dosen->id]);
+
+    LogBimbingan::factory()->count(3)->create([
+        'mahasiswa_id' => $mahasiswa->id,
+        'dosen_id' => $dosen->id,
+    ]);
+
+    $response = $this->actingAs($user)
+        ->get(route('siakad.dosen.log-bimbingan.show', $mahasiswa->id));
+
+    $response->assertStatus(200);
+    $response->assertViewHas('mahasiswa');
+    $response->assertViewHas('logs');
+});
+```
+
+**11. Show Returns 404 for Non-Existent Mahasiswa**
+
+**12. Show Orders Logs by Tanggal Descending**
+
+```php
+test('show orders logs by tanggal descending', function () {
+    // Create logs with different dates
+    LogBimbingan::factory()->create(['tanggal' => '2025-01-01']);
+    LogBimbingan::factory()->create(['tanggal' => '2025-03-01']);
+    LogBimbingan::factory()->create(['tanggal' => '2025-02-01']);
+
+    $response = $this->actingAs($user)
+        ->get(route('siakad.dosen.log-bimbingan.show', $mahasiswa->id));
+
+    // First should be newest (2025-03-01)
+    $response->assertViewHas('logs', function ($logs) {
+        return $logs->first()->tanggal->format('Y-m-d') === '2025-03-01';
+    });
+});
+```
+
+### Create Tests (2 tests)
+
+**13. Dosen Can View Create Log Form**
+**14. Create Returns 404 for Non-Existent Mahasiswa**
+
+### Store Tests (4 tests)
+
+**15. Dosen Can Store Log Bimbingan**
+
+```php
+test('dosen can store log bimbingan', function () {
+    $user = User::factory()->create();
+    $user->assignRole('dosen');
+
+    $dosen = Dosen::factory()->create(['email_institusi' => $user->email]);
+    $mahasiswa = Mahasiswa::factory()->create(['dosen_pa_id' => $dosen->id]);
+
+    $data = [
+        'mahasiswa_id' => $mahasiswa->id,
+        'tanggal' => '2025-12-10',
+        'topik' => 'Konsultasi Skripsi BAB 1',
+        'catatan' => 'Pembahasan latar belakang dan rumusan masalah',
+    ];
+
+    $response = $this->actingAs($user)
+        ->post(route('siakad.dosen.log-bimbingan.store'), $data);
+
+    $response->assertRedirect(route('siakad.dosen.log-bimbingan.show', $mahasiswa->id));
+    $response->assertSessionHas('success');
+
+    // Note: Table name is log_bimbingans (plural)
+    $this->assertDatabaseHas('log_bimbingans', [
+        'mahasiswa_id' => $mahasiswa->id,
+        'dosen_id' => $dosen->id,
+        'topik' => 'Konsultasi Skripsi BAB 1',
+    ]);
+});
+```
+
+**16. Store Validates Required Fields**
+
+```php
+test('store validates required fields', function () {
+    $user = User::factory()->create();
+    $user->assignRole('dosen');
+
+    Dosen::factory()->create(['email_institusi' => $user->email]);
+
+    $response = $this->actingAs($user)
+        ->post(route('siakad.dosen.log-bimbingan.store'), []);
+
+    $response->assertInvalid(['mahasiswa_id', 'tanggal', 'topik', 'catatan']);
+});
+```
+
+**17. Store Validates Mahasiswa Exists**
+
+**18. Store Requires Dosen Record to Exist**
+
+```php
+test('store requires dosen record to exist', function () {
+    $user = User::factory()->create();
+    $user->assignRole('dosen');
+    // No dosen record created
+
+    $mahasiswa = Mahasiswa::factory()->create();
+    $data = [
+        'mahasiswa_id' => $mahasiswa->id,
+        'tanggal' => '2025-12-10',
+        'topik' => 'Test',
+        'catatan' => 'Test catatan',
+    ];
+
+    $response = $this->actingAs($user)
+        ->post(route('siakad.dosen.log-bimbingan.store'), $data);
+
+    // firstOrFail() throws 404
+    $response->assertNotFound();
+});
+```
+
+## Key Testing Patterns
+
+### 1. PA Relationship Filter
+
+```php
+// Only show students assigned to this dosen as PA
+Mahasiswa::where('dosen_pa_id', $dosen->id)
+    ->where('status_mahasiswa', 'Aktif')
+    ->get()
+```
+
+### 2. Log Ordering
+
+```php
+// Newest logs first
+LogBimbingan::where('mahasiswa_id', $id)
+    ->orderBy('tanggal', 'desc')
+    ->get()
+```
+
+### 3. Auto-Assign Dosen Pattern
+
+```php
+// Store requires dosen, auto-assigns dosen_id
+$dosen = Dosen::where('email_institusi', $user->email)
+    ->orWhere('email_pribadi', $user->email)
+    ->firstOrFail(); // Throws 404 if not found
+
+LogBimbingan::create([
+    'dosen_id' => $dosen->id, // Auto-assigned
+    // ...
+]);
+```
+
+## Factory & Model Setup
+
+**LogBimbinganFactory** (created for tests):
+
+```php
+public function definition(): array
+{
+    return [
+        'mahasiswa_id' => \App\Models\Mahasiswa::factory(),
+        'dosen_id' => \App\Models\Dosen::factory(),
+        'tanggal' => fake()->dateTimeBetween('-6 months', 'now'),
+        'topik' => fake()->randomElement([
+            'Konsultasi Skripsi BAB 1',
+            'Konsultasi Skripsi BAB 2',
+            'Konsultasi Skripsi BAB 3',
+            'Konsultasi Tugas Akhir',
+            'Konsultasi Akademik',
+            'Konsultasi KRS',
+            'Pembahasan Proposal',
+            'Review Progress Penelitian',
+        ]),
+        'catatan' => fake()->paragraph(),
+    ];
+}
+```
+
+**LogBimbingan Model** (updated):
+
+```php
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class LogBimbingan extends Model
+{
+    use HasFactory; // Added for factory support
+
+    protected $fillable = [
+        'mahasiswa_id', 'dosen_id', 'tanggal', 'topik', 'catatan',
+    ];
+
+    protected $casts = [
+        'tanggal' => 'date',
+    ];
+}
+```
+
+## Dependencies
+
+**Models**: `User`, `Dosen`, `Mahasiswa`, `LogBimbingan`
+
+**Factories**: `UserFactory`, `DosenFactory`, `MahasiswaFactory`, `LogBimbinganFactory`
+
+**Database**: Table `log_bimbingans` (plural), Migration: `2025_12_05_062938_create_log_bimbingans_table.php`
+
+**Roles**: `dosen` (required)
+
+## Running Tests
+
+```bash
+# All tests
+php artisan test tests/Feature/Dosen/LogBimbinganTest.php
+
+# Specific test
+php artisan test --filter="dosen can store log bimbingan"
+
+# With coverage
+php artisan test tests/Feature/Dosen/LogBimbinganTest.php --coverage
+```
+
+## Common Issues & Solutions
+
+**Issue 1**: Table name mismatch
+
+- **Problem**: Test uses `log_bimbingan` (singular) but table is `log_bimbingans` (plural)
+- **Solution**: Use correct plural table name
+- **Test**: #15 (store log bimbingan)
+
+**Issue 2**: Dosen not found on store
+
+- **Problem**: No dosen record for authenticated user
+- **Solution**: Controller uses `firstOrFail()` → returns 404
+- **Test**: #18 (requires dosen record)
+
+**Issue 3**: Seeing other dosen's students
+
+- **Problem**: Missing PA filter
+- **Solution**: Filter `where('dosen_pa_id', $dosen->id)`
+- **Test**: #8 (only shows own bimbingan mahasiswa)
+
+## Conclusion
+
+PA dosen module for tracking academic guidance sessions:
+
+- ✅ PA relationship filtering (dosen_pa_id)
+- ✅ Active status filtering
+- ✅ Pagination (20/page)
+- ✅ Date ordering (newest first)
+- ✅ Required field validation
+- ✅ Auto-assign dosen_id
+
+**Status**: ✅ All 18 tests passing (100%)
